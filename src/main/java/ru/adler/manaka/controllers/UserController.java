@@ -24,12 +24,10 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, Model model) {
-        // Проверка существования пользователя
         if (userService.findByUsername(user.getUsername()).isPresent()) {
             model.addAttribute("error", "Username already exists");
             return "register";
         }
-
         userService.registerUser(user);
         return "redirect:/login";
     }
@@ -43,7 +41,7 @@ public class UserController {
     public String loginUser(@ModelAttribute User user, Model model, HttpSession session) {
         var foundUser = userService.findByUsername(user.getUsername());
 
-        if (foundUser.isPresent() && foundUser.get().getPassword().equals(user.getPassword())) {
+        if (foundUser.isPresent() && foundUser.get().getPassword().equals(user.getPassword()) && foundUser.get().getIsActive()) {
             session.setAttribute("loggedInUser", foundUser.get());
             return "redirect:/";
         } else {

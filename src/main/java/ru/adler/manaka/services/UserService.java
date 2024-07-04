@@ -17,6 +17,7 @@ public class UserService {
 
     public User registerUser(User user) {
         user.setRole(Role.USER);
+        user.setIsActive(true);
         return userRepository.save(user);
     }
 
@@ -28,8 +29,20 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public void deactivateUser(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        userOptional.ifPresent(user -> {
+            user.setIsActive(false);
+            userRepository.save(user);
+        });
+    }
+
+    public void activateUser(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        userOptional.ifPresent(user -> {
+            user.setIsActive(true);
+            userRepository.save(user);
+        });
     }
 
 }
