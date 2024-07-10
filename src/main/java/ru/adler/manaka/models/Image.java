@@ -1,27 +1,29 @@
 package ru.adler.manaka.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "hotel")
+@Table(name = "images")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
-public class Hotel {
+public class Image {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nameHotel")
-    private String nameHotel;
+    @Lob
+    @Column(nullable = false)
+    private byte[] bytes;
 
-    @Column(name = "descriptionHotel")
-    private String descriptionHotel;
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
 
-
-    public Hotel(String grand_hotel, String s) {
-    }
 }
