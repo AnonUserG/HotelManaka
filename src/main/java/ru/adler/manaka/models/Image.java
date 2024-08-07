@@ -27,3 +27,4 @@ public class Image {
     private Room room;
 
 }
+

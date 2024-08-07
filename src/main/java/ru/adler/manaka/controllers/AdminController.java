@@ -24,13 +24,16 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping("/admin")
     public String showAdminPanel(Model model) {
         model.addAttribute("room", new Room());
         model.addAttribute("users", userService.findAll());
         model.addAttribute("rooms", roomService.findAll());
+
         return "admin";
     }
+
 
     @PostMapping("/admin/addRoom")
     public String addRoom(@ModelAttribute Room room,
@@ -90,5 +93,6 @@ public class AdminController {
         roomService.deleteById(id);
         return "redirect:/admin";
     }
+
 
 }

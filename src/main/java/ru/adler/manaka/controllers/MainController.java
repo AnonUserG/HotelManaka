@@ -17,6 +17,7 @@ public class MainController {
     @Autowired
     private RoomService roomService;
 
+
     @GetMapping("/")
     public String showLandingPage(Model model, HttpSession session) {
         List<Room> rooms = roomService.findAll();
