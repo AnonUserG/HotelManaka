@@ -7,6 +7,7 @@ import ru.adler.manaka.models.Room;
 import ru.adler.manaka.repositories.ImageRepository;
 import ru.adler.manaka.repositories.RoomRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -36,5 +37,10 @@ public class RoomService {
     public Image findImageById(Long id) {
         return imageRepository.findById(id).orElse(null);
     }
+
+    public List<Room> findAvailableRooms(LocalDate startDate, LocalDate endDate) {
+        return roomRepository.findAvailableRooms(startDate, endDate);
+    }
+
 
 }

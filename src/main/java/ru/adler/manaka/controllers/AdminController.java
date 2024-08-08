@@ -6,11 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.adler.manaka.models.Image;
+import ru.adler.manaka.models.ReservationRooms;
 import ru.adler.manaka.models.Room;
+import ru.adler.manaka.services.ReservationRoomsService;
 import ru.adler.manaka.services.RoomService;
 import ru.adler.manaka.services.UserService;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,28 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ReservationRoomsService reservationRoomsService;
+
+    @PostMapping("/admin/bookRoom")
+    public String bookRoom(@RequestParam("roomId") Long roomId,
+                           @RequestParam("startDate") String startDate,
+                           @RequestParam("endDate") String endDate) {
+
+        Room room = roomService.findById(roomId);
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+
+        ReservationRooms reservation = new ReservationRooms();
+        reservation.setRoom(room);
+        reservation.setStartDate(start);
+        reservation.setEndDate(end);
+
+        reservationRoomsService.save(reservation);
+
+        return "redirect:/admin";
+    }
 
 
     @GetMapping("/admin")

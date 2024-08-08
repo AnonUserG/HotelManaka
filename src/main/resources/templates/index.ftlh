@@ -27,6 +27,8 @@
             color: #007bff;
         }
     </style>
+    <!-- Подключение jQuery UI для календаря -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <div class="header">
@@ -44,14 +46,28 @@
 </div>
 
 <div class="contact-info">
-    <p>Для бронирования отеля звоните по телефону 8 (800) 555 35-35</p>
+    <p>Для бронирования отеля звоните по телефону 8 (988) 152 33-35</p>
 </div>
 
 <div class="messenger-links">
-    <a href="https://t.me/*********" target="_blank">Телеграмм</a>
-    <a href="https://wa.me/********" target="_blank">Ватсап</a>
+    <a href="${telegramUrl}" target="_blank">Телеграмм</a>
+    <a href="${whatsappUrl}" target="_blank">Ватсап</a>
 </div>
 
+<!-- Форма для ввода дат -->
+<div class="date-selection">
+    <form action="/" method="get">
+        <label for="startDate">Дата заезда:</label>
+        <input type="text" id="startDate" name="startDate" class="datepicker" required>
+
+        <label for="endDate">Дата выезда:</label>
+        <input type="text" id="endDate" name="endDate" class="datepicker" required>
+
+        <button type="submit">Проверить доступные номера</button>
+    </form>
+</div>
+
+<!-- Список доступных номеров -->
 <div>
     <h2>Available Rooms</h2>
     <ul>
@@ -69,5 +85,16 @@
         </#list>
     </ul>
 </div>
+
+<!-- Подключение jQuery и jQuery UI для календаря -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+    });
+</script>
 </body>
 </html>
