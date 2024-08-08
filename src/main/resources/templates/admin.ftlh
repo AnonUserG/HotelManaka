@@ -100,7 +100,7 @@
                     <td>${room.description}</td>
                     <td>${room.price}</td>
                     <td>
-                        <a href="/admin/deleteRoom/${room.id}" class="btn btn-danger">Удалить</a>
+                        <button class="btn btn-danger" onclick="confirmDelete(${room.id})">Удалить</button>
                     </td>
                     <td>
                         <button class="btn btn-primary" onclick="showCalendar(${room.id})">Бронь</button>
@@ -144,6 +144,25 @@
     </div>
 </div>
 
+<!-- Модальное окно для подтверждения удаления -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены, что хотите удалить данный номер?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                <a href="#" id="confirmDeleteButton" class="btn btn-danger">Да</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Подключение Bootstrap JS и jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
@@ -160,6 +179,11 @@
     function showCalendar(roomId) {
         $('#roomId').val(roomId);
         $('#reservationModal').modal('show');
+    }
+
+    function confirmDelete(roomId) {
+        $('#confirmDeleteButton').attr('href', '/admin/deleteRoom/' + roomId);
+        $('#deleteConfirmModal').modal('show');
     }
 </script>
 </body>
